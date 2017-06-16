@@ -5,15 +5,13 @@ public class BigRoom
 	private String _id;
 	private String _row;
 	private int _seatNum;
-	private boolean _occupied;
 	private String _region;
 	
-	public BigRoom(String id, String row, int seatNum, boolean occupied, String region)
+	public BigRoom(String id, String row, int seatNum, String region)
 	{
 		this._id = id;
 		this._row = row;
 		this._seatNum = seatNum;
-		this._occupied = occupied;
 		this._region = region;
 	}
 	
@@ -31,12 +29,7 @@ public class BigRoom
 	{
 		return this._seatNum;
 	}
-
-	public boolean is_occupied()
-	{
-		return this._occupied;
-	}
-
+	
 	public String get_region()
 	{
 		return this._region;

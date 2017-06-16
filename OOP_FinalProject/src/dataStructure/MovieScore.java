@@ -5,8 +5,6 @@ public class MovieScore
 	private int _id;
 	private String _movie;
 
-	
-
 	public MovieScore(int id, String movie) {
 		this._id = id;
 		this._movie = movie;
@@ -20,6 +18,4 @@ public class MovieScore
 	{
 		return _movie;
 	}
-	
-
 }

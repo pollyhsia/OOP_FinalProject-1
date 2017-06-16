@@ -11,7 +11,8 @@ public class MovieInfo
 	private MovieTimeList _time;
 	private String _hall;
 	
-	public MovieInfo(int id, String movie, String classification, String descri, int infor, double score, String time, String hall) throws Exception
+	public MovieInfo(int id, String movie, String classification, String descri, 
+			int infor, double score, MovieTimeList time, String hall) throws Exception
 	{
 		this._id = id;
 		this._movie = movie;
@@ -19,15 +20,7 @@ public class MovieInfo
 		this._descri = descri;
 		this._infor = infor;
 		this._score = score;
-		this._time = new MovieTimeList();
-		String[] timelist = time.split("、");
-		
-		// 這邊要改
-		for(String t :timelist) {
-			int h = Integer.parseInt(t.split(":")[0]);
-			int m = Integer.parseInt(t.split(":")[1]);
-			this._time.add(h,m);
-		}
+		this._time = time;
 		this._hall = hall;
 	}
 	

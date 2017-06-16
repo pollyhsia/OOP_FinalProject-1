@@ -2,8 +2,6 @@ package dataStructure;
 
 public class SeatNum
 {
-	
-	
 	int _numGray=0;
 	int _numBlue=0;
 	int _numYellow=0;
@@ -25,14 +23,8 @@ public class SeatNum
 			_numSmall = Integer.parseInt(seatlist[0]) ;
 		} else {
 			throw new Exception("error seatNumList");
-		}
-		
-		
+		}	
 	}
-	
-
-	
-
 	public int getTotal()
 	{
 		return _numGray + _numBlue + _numYellow + _numRed + _numSmall;

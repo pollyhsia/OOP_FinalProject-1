@@ -1,101 +1,54 @@
 package dataStructure;
 
+import java.time.LocalTime;
 
 public class MovieTime
 {
-	private int session = -1;
-	private int _hour;
-	private int _min;
-
-	private boolean checkTime(int hour, int min) {
-		boolean isRight = true;
-		if (hour < 0 || hour > 24)
-			isRight = false;
-
-		if (min < 0 || min > 60)
-			isRight = false;
-		
-		return isRight;
-	}
+	// 時間變數
+	private LocalTime movie_time;
 	
-	
-	public MovieTime(int hour, int min) throws Exception
-	{
-		if (!checkTime(hour, min))
-			throw new Exception("No this time " + hour+":"+min);
-
-		this._hour = hour;
-		this._min = min;
-	}
-	
-	public MovieTime(String time) throws Exception {
+	/**
+	 * 這個是constructor , 建構電影時刻物件
+	 * @param time : 傳入的時間
+	 */
+	public MovieTime(String time) {
 		time = DBBuilder.convertChar(time);
-		int hour = Integer.parseInt(time.split(":")[0]);
-		int min = Integer.parseInt(time.split(":")[1]);
-		
-		if (!checkTime(hour, min))
-			throw new Exception("No this time " + hour+":"+min);
-
-		this._hour = hour;
-		this._min = min;
-	}
-
-	public int getHour()
-	{
-		return this._hour;
-	}
-
-	public int getMin()
-	{
-		return this._min;
-	}
-
-	public int getSession()
-	{
-		return this.session;
-	}
-
-	public void setSession(int session)
-	{
-		this.session = session;
+		this.movie_time = LocalTime.parse(time);
 	}
 	
-	public boolean compareBefore(MovieTime time)
-	{
-		boolean isBefore = false;
-		if (this.getHour() == time.getHour())
-		{
-			if (this.getMin() <= time.getMin())
-				isBefore = true;
-		} else
-		{
-
-			if (this.getHour() <= time.getHour())
-				isBefore = true;
-		}
-
-		return isBefore;
+	/**
+	 * 這個function會回傳MovieTime物件的時間
+	 * @return LocalTime : MovieTime物件的時間
+	 */
+	public LocalTime getTime() {
+		return this.movie_time;
+	}
+	
+	/**
+	 * 這個function 會回傳是否在這個時刻之前
+	 * @param time : 傳入的時間
+	 * @return boolean
+	 */
+	public boolean isBefore(MovieTime time) {
+		return (this.movie_time.isBefore(time.getTime()));
+	}
+	
+	/**
+	 * 這個function 會回傳是否在這個時刻之後
+	 * @param time : 傳入的時間
+	 * @return boolean
+	 */
+	public boolean isAfter(MovieTime time) {
+		return (this.movie_time.isAfter(time.getTime()));
 	}
 
-	public boolean compareAfter(MovieTime time)
-	{
-		boolean isAfter = false;
-		if (this.getHour() == time.getHour())
-		{
-			if (this.getMin() >= time.getMin())
-				isAfter = true;
-		} else
-		{
-			if (this.getHour() >= time.getHour())
-				isAfter = true;
-		}
-
-		return isAfter;
+	/**
+	 * 這個function 用來判斷是否在兩個MovieTime 中間
+	 * @param timeStart : 最早時間
+	 * @param timeEnd : 最晚時間
+	 * @return boolean 
+	 */
+	public boolean isBetween(MovieTime timeStart, MovieTime timeEnd) {
+		return (this.isBefore(timeEnd) && this.isAfter(timeStart)) ? true : false;
 	}
-
-	public String toString()
-	{
-		return String.format("%02d:%02d", this._hour, this._min);
-	}
-
 }

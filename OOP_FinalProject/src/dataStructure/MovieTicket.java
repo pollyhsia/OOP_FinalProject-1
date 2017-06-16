@@ -10,7 +10,8 @@ public class MovieTicket
 	private String region;
 	private int seat;
 	
-	public MovieTicket(int id, String movie_name, String time, String hall, String row, String region,int seat) throws Exception
+	public MovieTicket(int id, String movie_name, String time, 
+			String hall, String row, String region,int seat) throws Exception
 	{
 		this.id = id;
 		this.movie_name = movie_name;
@@ -55,6 +56,4 @@ public class MovieTicket
 	{
 		return this.seat;
 	}
-
-
 }
