@@ -77,7 +77,7 @@ public class Movie_DAO {
 	 */
 	public MovieInfo getMovieInfo(int movieID) throws ticketSystemException{
 	  MovieInfo movie_info = null;
-	  MovieTimeList timeList = null;
+	  MovieTimeList timeList = new MovieTimeList();
 	  try {
 		  connection = getConnection();
 		  qStmt = connection.prepareStatement("SELECT * FROM Movie_info "
@@ -90,12 +90,16 @@ public class Movie_DAO {
 	      String description = result.getString("descri");
 	      int infor = result.getInt("infor");
 	      Double score = result.getDouble("score");
+	     
+	      // 把七個欄位都先拿出來，不是null的再加進去MovieTimeList
 	      for(int i = 1; i < 7; i++) {
 	    	  String tmp_time = result.getString("time_" + i);
 	    	  if(tmp_time != null)
 	    		  timeList.add(tmp_time);
 	      }
 	      String hall = result.getString("hall");
+	      
+	      // new 一個MovieInfo 物件
 	      movie_info = new MovieInfo(movieID, movie_name, classification, description, infor, score, timeList, hall);
 	    }
 	  } catch (Exception e) {
