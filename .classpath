@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="OOP_FinalProject/src"/>
+	<classpathentry kind="lib" path="OOP_FinalProject/lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="OOP_FinalProject/lib/jsoup-1.10.2.jar"/>
+	<classpathentry kind="lib" path="OOP_FinalProject/lib/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="OOP_FinalProject/bin"/>
+</classpath>

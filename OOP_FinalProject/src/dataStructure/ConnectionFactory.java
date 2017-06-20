@@ -10,8 +10,8 @@ import com.mysql.jdbc.Driver;
 public class ConnectionFactory {
 	String driver = "com.mysql.jdbc.Driver";
 	String username = "root";
-	String password = "ab2289114";
-	String dbUrl = "jdbc:mysql://localhost:3306/Movie_System?useUnicode=yes&characterEncoding=UTF-8";
+	String password = "000000";
+	String dbUrl = "jdbc:mysql://localhost:3306/oop_finalproject?useUnicode=yes&characterEncoding=UTF-8";
 	
 	// 使用 Singleton Pattern Design 確保在執行時只有一個 ConnectionFactory 物件
 	

@@ -19,10 +19,10 @@ public class DBBuilder {
 	PreparedStatement insertStmt = null;
 	
 	// json 檔路徑
-	private String user_json = "/Users/Brian/Desktop/Java/jsonTest/json/user.json";
-	private String movie_json = "/Users/Brian/Desktop/Java/jsonTest/json/movie_info.json";
-	private String big_room = "/Users/Brian/Desktop/Java/jsonTest/json/big_room.json";
-	private String small_room = "/Users/Brian/Desktop/Java/jsonTest/json/small_room.json";
+	private String user_json = "D:/JavaWorkSpace/OOP_FinalProject-1/OOP_FinalProject/src/dataStructure/user.json";
+	private String movie_json = "D:/JavaWorkSpace/OOP_FinalProject-1/OOP_FinalProject/src/dataStructure/movie_info.json";
+	private String big_room = "D:/JavaWorkSpace/OOP_FinalProject-1/OOP_FinalProject/src/dataStructure/big_room.json";
+	private String small_room = "D:/JavaWorkSpace/OOP_FinalProject-1/OOP_FinalProject/src/dataStructure/small_room.json";
 	
 	// big_romm List
 	private List<String> big_rooms = Arrays.asList("武當","華山","少林");
@@ -102,89 +102,89 @@ public class DBBuilder {
 	/**
 	 * 這個 function 會建立 Movie_info 的 table
 	 */	
-	private void createMovieTable() {
-		try {
-			// SQL code to create Movie_info table
-			connection = getConnection();
-			createTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Movie_Info("
-					+ "id int NOT NULL AUTO_INCREMENT,"
-					+ "movie varchar(100),"
-					+ "classification varchar(2),"
-					+ "descri varchar(255),"
-					+ "infor int,"
-					+ "score Double,"
-					+ "time_1 varchar(255),"
-					+ "time_2 varchar(255),"
-					+ "time_3 varchar(255),"
-					+ "time_4 varchar(255),"
-					+ "time_5 varchar(255),"
-					+ "time_6 varchar(255),"
-					+ "time_7 varchar(255),"
-					+ "hall varchar(2),"
-					+ "PRIMARY KEY(id))");
-			createTable.executeUpdate();
-			
-			// insert movie_info into table
-			String movieName;
-			String classification;
-			String description;
-			int info;
-			double score;
-			String[] timeList = new String[7];
-			String hall;
-			insertStmt = connection.prepareStatement("INSERT INTO Movie_Info(movie,classification,descri,infor,score"
-					+ ",time_1,time_2,time_3,time_4,time_5,time_6,time_7,hall)"
-					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			
-			JSONArray movieList = parseJSON(movie_json);
-			for(Object movie : movieList){
-				JSONObject currentMovie = (JSONObject) movie;
-				// method trim() is used to remove whitespace at the beginning and end of string
-				movieName = ((String) currentMovie.get("movie")).trim();
-				classification = (String) currentMovie.get("classification");
-				description = (String) currentMovie.get("descri");
-				String tmp_info = convertChar((String) currentMovie.get("infor"));
-				int indexStart = tmp_info.indexOf(":") + 1;
-				int indexEnd = tmp_info.indexOf("分");
-				info = Integer.valueOf(tmp_info.substring(indexStart, indexEnd));
-				
-				// remove the part of score after "/" character
-				String tmpScore = ((String) currentMovie.get("score")).trim();
-				int indexOfEnd = tmpScore.indexOf("/");
-				tmpScore = tmpScore.substring(0, indexOfEnd);
-				score = Double.parseDouble(tmpScore);
-				
-				String[] tmp_timeList = convertChar(((String) currentMovie.get("time")).trim()).split("、");
-				for (int i = 0 ; i < tmp_timeList.length; i++){
-					timeList[i] = tmp_timeList[i];
-				}
-				
-				for(int i = tmp_timeList.length; i < timeList.length; i++){
-					timeList[i] = null;
-				}
-				
-				hall = ((String) currentMovie.get("hall")).trim();
-				insertStmt.setString(1, movieName);
-				insertStmt.setString(2, classification);
-				insertStmt.setString(3, description);
-				insertStmt.setInt(4, info);
-				insertStmt.setDouble(5, score);
-				insertStmt.setString(6, timeList[0]);
-				insertStmt.setString(7, timeList[1]);
-				insertStmt.setString(8, timeList[2]);
-				insertStmt.setString(9, timeList[3]);
-				insertStmt.setString(10, timeList[4]);
-				insertStmt.setString(11, timeList[5]);
-				insertStmt.setString(12, timeList[6]);
-				insertStmt.setString(13, hall);
-				insertStmt.addBatch();
-			}
-			// insert into DB
-			insertStmt.executeBatch();
-		} catch (Exception e) {
-			System.out.println(e.getMessage() + " -> Cannot create Movie_info table");
-		}
-	}
+//	private void createMovieTable() {
+//		try {
+//			// SQL code to create Movie_info table
+//			connection = getConnection();
+//			createTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Movie_Info("
+//					+ "id int NOT NULL AUTO_INCREMENT,"
+//					+ "movie varchar(100),"
+//					+ "classification varchar(2),"
+//					+ "descri varchar(255),"
+//					+ "infor int,"
+//					+ "score Double,"
+//					+ "time_1 varchar(255),"
+//					+ "time_2 varchar(255),"
+//					+ "time_3 varchar(255),"
+//					+ "time_4 varchar(255),"
+//					+ "time_5 varchar(255),"
+//					+ "time_6 varchar(255),"
+//					+ "time_7 varchar(255),"
+//					+ "hall varchar(2),"
+//					+ "PRIMARY KEY(id))");
+//			createTable.executeUpdate();
+//			
+//			// insert movie_info into table
+//			String movieName;
+//			String classification;
+//			String description;
+//			int info;
+//			double score;
+//			String[] timeList = new String[7];
+//			String hall;
+//			insertStmt = connection.prepareStatement("INSERT INTO Movie_Info(movie,classification,descri,infor,score"
+//					+ ",time_1,time_2,time_3,time_4,time_5,time_6,time_7,hall)"
+//					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+//			
+//			JSONArray movieList = parseJSON(movie_json);
+//			for(Object movie : movieList){
+//				JSONObject currentMovie = (JSONObject) movie;
+//				// method trim() is used to remove whitespace at the beginning and end of string
+//				movieName = ((String) currentMovie.get("movie")).trim();
+//				classification = (String) currentMovie.get("classification");
+//				description = (String) currentMovie.get("descri");
+//				String tmp_info = convertChar((String) currentMovie.get("infor"));
+//				int indexStart = tmp_info.indexOf(":") + 1;
+//				int indexEnd = tmp_info.indexOf("分");
+//				info = Integer.valueOf(tmp_info.substring(indexStart, indexEnd));
+//				
+//				// remove the part of score after "/" character
+//				String tmpScore = ((String) currentMovie.get("score")).trim();
+//				int indexOfEnd = tmpScore.indexOf("/");
+//				tmpScore = tmpScore.substring(0, indexOfEnd);
+//				score = Double.parseDouble(tmpScore);
+//				
+//				String[] tmp_timeList = convertChar(((String) currentMovie.get("time")).trim()).split("、");
+//				for (int i = 0 ; i < tmp_timeList.length; i++){
+//					timeList[i] = tmp_timeList[i];
+//				}
+//				
+//				for(int i = tmp_timeList.length; i < timeList.length; i++){
+//					timeList[i] = null;
+//				}
+//				
+//				hall = ((String) currentMovie.get("hall")).trim();
+//				insertStmt.setString(1, movieName);
+//				insertStmt.setString(2, classification);
+//				insertStmt.setString(3, description);
+//				insertStmt.setInt(4, info);
+//				insertStmt.setDouble(5, score);
+//				insertStmt.setString(6, timeList[0]);
+//				insertStmt.setString(7, timeList[1]);
+//				insertStmt.setString(8, timeList[2]);
+//				insertStmt.setString(9, timeList[3]);
+//				insertStmt.setString(10, timeList[4]);
+//				insertStmt.setString(11, timeList[5]);
+//				insertStmt.setString(12, timeList[6]);
+//  			    insertStmt.setString(13, hall);
+//				insertStmt.addBatch();
+//			}
+//			// insert into DB
+//			insertStmt.executeBatch();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage() + " -> Cannot create Movie_info table");
+//		}
+//	}
 	
 	/**
 	 * 這個function會建立 Big_room 的 table
@@ -243,8 +243,9 @@ public class DBBuilder {
 	/**
 	 * 這個 function 會建立 Small_room 的 table
 	 * param seatList : 傳入 small_room.json 的座位表
+	 * @throws SQLException 
 	 */
-	private void createSmallRoomTable() {
+	private void createSmallRoomTable() throws SQLException {
 		try {
 			// SQL code to create small_room table
 			connection = getConnection();
@@ -252,6 +253,7 @@ public class DBBuilder {
 					+ "id varchar(24),"
 					+ "row varchar(1),"
 					+ "seatNum varchar(2),"
+					+ "occupied TINYINT,"
 					+ "PRIMARY KEY(id))");
 			
 			createTable.executeUpdate();
@@ -260,27 +262,29 @@ public class DBBuilder {
 			String id;
 			String row;
 			String seatNum;
-			String occupied_hall1;
-			String occupied_hall2;
-			int movie_num = 5;
+			boolean occupied;
+
+//			int movie_num = 5;
 			JSONArray seatList = parseJSON(small_room);
-			insertStmt = connection.prepareStatement("INSERT INTO Small_room(id,row,seatNum)"
-					+ "VALUES (?,?,?)");
+			insertStmt = connection.prepareStatement("INSERT INTO Small_room(id,row,seatNum, occupied)"
+					+ "VALUES (?,?,?,?)");
 			for (Object seat : seatList){
 				JSONObject currentSeat = (JSONObject) seat;
 				id = (String) currentSeat.get("id");
 				row = (String) currentSeat.get("row");
 				long num = (long) currentSeat.get("seatNum");
 				seatNum = (String) (num < 10 ? "0" : "") + num;
+				occupied = (boolean) currentSeat.get("occupied");
 				
 				// insert into DB
 				insertStmt.setString(1, id);
 				insertStmt.setString(2, row);
 				insertStmt.setString(3, seatNum);
+				insertStmt.setBoolean(4, occupied);
 				insertStmt.executeUpdate();
 			}			
 		} catch (Exception e) {
-			System.out.println(e +" -> cannot create Small_room table");
+			throw new SQLException(e +" -> cannot create Small_room table");
 		}
 	}
 	
@@ -369,6 +373,102 @@ public class DBBuilder {
 	
 	
 	/**
+	 * 這個 function 會建立 Movie_Time 的 table
+	 */	
+	private void createMovieTimeTable() throws SQLException{
+		try {
+			// SQL code to create Movie_info table
+			connection = getConnection();
+			createTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Movie_Time("
+					+ "id INT NOT NULL AUTO_INCREMENT,"
+					+ "movie_id INT NOT NULL,"
+					+ "session_id INT NOT NULL,"
+					+ "time Time NULL,"
+					+ "PRIMARY KEY (id))");
+			createTable.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " -> Cannot create Movie_time table");
+		}
+		
+		
+		try {
+			// SQL code to  insert movie_info_time into table
+			connection = getConnection();
+			for (int i = 1; i < 8; i++)
+			{
+			String sql = "INSERT INTO Movie_Time(movie_id,session_id,time) select id,"
+					+ i + ", time_" + i + " from oop_finalproject.movie_info  "
+					+ "where time_" + i + "  is not null";
+
+			insertStmt = connection.prepareStatement(sql);
+
+			insertStmt.execute();
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " -> Cannot insert Movie_time table");
+		}
+		
+
+
+	}
+	
+	
+	private void createMovieTable() {
+		try {
+			// SQL code to create Movie_info table
+			connection = getConnection();
+			createTable = connection.prepareStatement("CREATE TABLE IF NOT EXISTS Movie_Info("
+					+ "id int NOT NULL AUTO_INCREMENT,"
+					+ "movie varchar(100),"
+					+ "classification varchar(2),"
+					+ "descri varchar(255),"
+					+ "infor int,"
+					+ "score Double,"
+					+ "time_1 Time,"
+					+ "time_2 Time,"
+					+ "time_3 Time,"
+					+ "time_4 Time,"
+					+ "time_5 Time,"
+					+ "time_6 Time,"
+					+ "time_7 Time,"
+					+ "hall varchar(2),"
+					+ "PRIMARY KEY(id))");
+			createTable.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " -> Cannot create Movie_info table");
+		}
+		
+		try {
+			// SQL code to  insert movie_info_time into table
+			connection = getConnection();
+			for (int i = 1; i < 8; i++)
+			{
+			String sql = "INSERT INTO Movie_Time(movie_id,session_id,time) select id,"
+					+ i + ", time_" + i + " from oop_finalproject.movie_info  "
+					+ "where time_" + i + "  is not null";
+
+			insertStmt = connection.prepareStatement(sql);
+
+			insertStmt.execute();
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + " -> Cannot insert Movie_time table");
+		}
+		
+		
+		insertStmt = connection.prepareStatement("INSERT INTO Movie_Info(movie,classification,descri,infor,score"
+				+ ",time_1,time_2,time_3,time_4,time_5,time_6,time_7,hall)"
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+		
+		
+		// insert into DB
+		insertStmt.executeBatch();
+	}
+	
+	
+	
+	/**
 	 * 這個function 是用來把全形字轉成半形
 	 * @param str : 輸入之字串
 	 * @return String : convert 完成的字串
@@ -392,7 +492,9 @@ public class DBBuilder {
 //			createBigRoomTable();
 //			createSmallRoomTable();
 //			createTicketTable();
-			createSeatNumTable();
+//			createSeatNumTable();
+			createMovieTimeTable();
+			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "Cannot create table");
 		} finally {

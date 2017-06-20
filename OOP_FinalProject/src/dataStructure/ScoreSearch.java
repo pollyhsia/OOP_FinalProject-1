@@ -1,11 +1,14 @@
 package dataStructure;
 
-public class MovieScore
+public class ScoreSearch
 {
+
 	private int _id;
 	private String _movie;
 
-	public MovieScore(int id, String movie) {
+	
+
+	public ScoreSearch(int id, String movie) {
 		this._id = id;
 		this._movie = movie;
 	}
